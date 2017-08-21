@@ -205,4 +205,4 @@ alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
 
 # Alias to start server/kill
 alias runserver="echo 'Starting server.' && ../bundles/tomcat*/bin/catalina.sh run"
-alias killserver='kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
+alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
