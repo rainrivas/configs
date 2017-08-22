@@ -142,7 +142,7 @@
 	#pa = !git push-all
 	#pam = !git push-allm
 	#pum = push upstream $(git getm)
-	#pbo = !git push origin $(git brn)
+	pbo = !git push origin $(git brn)
 
 	pu = pull upstream
 	fu = fetch upstream
@@ -158,7 +158,7 @@
 	# Sync current branch from upstream to origin
 	#sbo = !git sync-origin $(git brn)
 	# Update current branch from origin
-	#ubo = !git pull origin $(git brn)
+	ubo = !git pull origin $(git brn)
 
 	## Logging
 	##--------
