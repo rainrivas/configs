@@ -130,10 +130,23 @@ parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
+# drops first portion of a path $1 if length is greater than $2
+function __droppath {
+    if [[ ${#1} -gt $2 ]]; then
+        p=$1
+        while [ ${#p} -gt $2 ]; do
+            p="/"$(echo "$p"|cut -d"/" -f3-)
+        done
+        echo "..."$p
+    else
+        echo $1
+    fi
+}
+
 if [ "$force_color_prompt" = yes ]; then
-    PS1='\[\033[1m\]\[\033[33m\][${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\w\[\033[35m\]$(parse_git_branch)\[\033[33m\]]\[\033[00m\]\$ '
+    PS1='\[\033[1m\]\[\033[33m\][${debian_chroot:+($debian_chroot)}\[\033[01;34m\]$(__droppath "\w" 50)\[\033[35m\]$(parse_git_branch)\[\033[33m\]]\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u:\w$(parse_git_branch)\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\u:$(__droppath "\w" 50)$(parse_git_branch)\$ '
 fi
 
 unset color_prompt force_color_prompt
