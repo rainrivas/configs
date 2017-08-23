@@ -228,21 +228,21 @@ alias g='git'
 # Usage: fp <# of commits> <Commit Sha>
 # Example: fp 3 34s3446e
 function fp {
-  dirPath=`find /home/ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   git format-patch -"$1" "$2" -o "$dirPath"/patch_files
   echo "Patch files created in $dirPath/patch_files/"
   echo "Navigate to topic branch and run command 'ap' to apply patch."
 }
 
 function ap {
-  dirPath=`find /home/ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   git am -3 "$dirPath"/patch_files/*
   echo "Patch files applied; resolve conflicts or run 'dp' to delete patch files."
 }
 
 function dp {
   echo "Cleaning patch files."
-  dirPath=`find /home/ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   rm "$dirPath"/patch_files/*
   echo "Patch files removed."
 }
