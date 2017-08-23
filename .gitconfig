@@ -24,6 +24,10 @@
 	# Status
 	st = status
 
+	# Format patch
+	fp = "!f() { git format-patch -$1 $2 -o patch_files; }; f" 
+	ap = "!f() { git am -3 ../../ce-master/liferay-portal/patch_files/*; echo 'Remember to remove patch files from ../../ce-master/liferay-portal/patch_files'; }; f"
+
     # Git Tools
 	# @Requires the following scripts (all available in this repo):
 	# git-get-latest-jira-id
