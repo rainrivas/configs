@@ -224,6 +224,9 @@ alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep t
 alias g='git'
 
 # Git Format Patch
+
+# Usage: fp <# of commits> <Commit Sha>
+# Example: fp 3 34s3446e
 function fp {
   dirPath=`find /home/ -maxdepth 3 -type d -name 'liferay' -print -quit`
   git format-patch -"$1" "$2" -o "$dirPath"/patch_files
