@@ -226,7 +226,7 @@ alias g='git'
 # Git Format Patch
 
 # Usage: fp <# of commits> <Commit Sha>
-# Example: fp 3 34s3446e
+# Example: `fp 3 34s3446e`
 function fp {
   dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   # ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
