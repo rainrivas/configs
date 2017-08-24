@@ -229,20 +229,33 @@ alias g='git'
 # Example: fp 3 34s3446e
 function fp {
   dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  git format-patch -"$1" "$2" -o "$dirPath"/patch_files
-  echo "Patch files created in $dirPath/patch_files/"
+  # ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
+  # add logic to check directory for existing patch files. if patch files exist, prompt for removal
+  
+  git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q
+  echo -e "Patch files created in $dirPath/patch_files/"
+  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;32mCreated: \033[01;00m$file"; done
   echo "Navigate to topic branch and run command 'ap' to apply patch."
 }
 
 function ap {
   dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  git am -3 "$dirPath"/patch_files/*
-  echo "Patch files applied; resolve conflicts or run 'dp' to delete patch files."
+  echo "Would you like to apply these patch files?"
+  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
+
+  while true; do
+    read -p "Continue?" yn
+    case $yn in
+          [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo "Resolve any conflicts before continuing or run 'dp' to delete patch files."; break;;
+          [Nn]* ) echo "Breaking command"; break;;
+          * ) echo "Please answer yes or no.";;
+    esac
+  done
 }
 
 function dp {
   echo "Cleaning patch files."
   dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  rm "$dirPath"/patch_files/*
+  rm "$dirPath"/patch_files/* -v
   echo "Patch files removed."
 }
