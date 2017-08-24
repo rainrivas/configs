@@ -1,12 +1,17 @@
 [user]
 	email = joshua.wu.0910@gmail.com
 	name = Joshua Wu
-
 [core]
         quotepath = false
         autocrlf = input
 [color]
         ui = auto
+
+[github]
+	user = jwu910
+
+[include]
+	path = ~/.gitconfigcredentials
 
 [alias]
 	tr1=log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
@@ -201,9 +206,9 @@
 	# List the filenames and diff stats for a commit/treeish
 	dl = "!f() { ref_spec=$(git get-custom-refspec $1); git diff --stat $ref_spec; }; f"
 	# Show the patch for a commit/treeish
-	#delta = "!f() { ref_spec=$(git get-custom-refspec $1); git diff $ref_spec; }; f"
+	delta = "!f() { ref_spec=$(git get-custom-refspec $1); git diff $ref_spec; }; f"
 	# Show *just* the file names that have been changed for a commit/treeish
-	#ldl = "!f() { local ref_spec=$(git get-custom-refspec $1); git diff --pretty='format:' --name-only $ref_spec; }; f"
+	ldl = "!f() { local ref_spec=$(git get-custom-refspec $1); git diff --pretty='format:' --name-only $ref_spec; }; f"
 
 	## Opening files
 	##--------
@@ -219,23 +224,23 @@
 	##--------
 
 	# Update submodules
-	#subu = submodule update
+	subu = submodule update
 	# Update submodules and initialize them
-	#subi = submodule update --init
+	subi = submodule update --init
 
 	## Submitting Pull Requests
 	##--------
 
 	# Pull request
-	#pr = pull-request
+	pr = pull-request
 	# Show pull requests w/stats
-	#prs = pull-request stat
+	prs = pull-request stat
 	# Submit pull request and close the current one
-	#prcs = !git pr submit -q && git pr close
+	prcs = !git pr submit -q && git pr close
 	# Sets the update branch based on the current repo directory name (so liferay-portal-ee-6.1.x will have an update branch of ee-6.1.x)
-	#set-pr-branch-config = "!f(){ git config "git-pull-request.$(git rev-parse --show-toplevel).$1" "$2"; }; f"
-	#set-update-branch = "!f(){ git set-pr-branch-config "update-branch" "${1:-$(git getm)}"; }; f"
-	#set-work-dir = "!f(){ git set-pr-branch-config "work-dir" "$1"; }; f"
+	set-pr-branch-config = "!f(){ git config "git-pull-request.$(git rev-parse --show-toplevel).$1" "$2"; }; f"
+	set-update-branch = "!f(){ git set-pr-branch-config "update-branch" "${1:-$(git getm)}"; }; f"
+	set-work-dir = "!f(){ git set-pr-branch-config "work-dir" "$1"; }; f"
 
 	## Misc
 	##--------
@@ -281,3 +286,4 @@
 
 	# Remove untracked files and directories
 	cln = clean -f -d
+

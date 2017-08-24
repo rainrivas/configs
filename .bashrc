@@ -210,7 +210,10 @@ function jlsc {
 alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -e " :: ${file##*/}\n$(cat $file)" > $file ; done'
 
 # Alias git pull requests
-alias gitpr="source /home/joshua/programming/liferay/misc/git-tools/git-pull-request/git-pull-request.sh"
+function gitpr { 
+  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  source "$dirPath"/misc/git-tools/git-pull-request/git-pull-request.sh
+}
 
 # Shortcut to open bashrc
 alias brc="nano ~/.bashrc"
