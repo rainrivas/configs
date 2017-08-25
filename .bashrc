@@ -225,9 +225,13 @@ alias g='git'
 # Usage: fp <# of commits> <Commit Sha>
 # Example: `fp 3 34s3446e`
 function fp {
-  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  # ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
-  # add logic to check directory for existing patch files. if patch files exist, prompt for removal
+  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  local fileCount=$(ls $dirPath/patch_files | wc -l)
+
+  if (( "$fileCount" > 0 )); then
+    echo -e "Patch folder already contains files!\nClear files before continuing."
+    return "0"
+  fi
   
   git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q
   echo -e "Patch files created in $dirPath/patch_files/"
@@ -236,7 +240,7 @@ function fp {
 }
 
 function ap {
-  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   echo "Would you like to apply these patch files?"
   ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
 
@@ -252,7 +256,7 @@ function ap {
 
 function dp {
   echo "Cleaning patch files."
-  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
+  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   rm "$dirPath"/patch_files/* -v
   echo "Patch files removed."
 }
@@ -260,6 +264,6 @@ function dp {
 # Use node-gh to send PR
 # SendPR function for submitting pull requests through nodeGH relating to JIRA tickets
 function sendPR() {
-    branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
+    local branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
     gh pr -s "$1" -b "$2" -D "Hi @$1,<br><br>Attached is the fix for [$branch_name](http://issues.liferay.com/browse/$branch_name).<br><br>Let me know if you have any questions. Thanks."
 }
