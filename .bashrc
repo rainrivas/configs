@@ -209,12 +209,6 @@ function jlsc {
 # Alias - locate JSP files in portal portlet
 alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -e " :: ${file##*/}\n$(cat $file)" > $file ; done'
 
-# Alias git pull requests
-function gitpr { 
-  dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  source "$dirPath"/misc/git-tools/git-pull-request/git-pull-request.sh
-}
-
 # Shortcut to open bashrc
 alias brc="nano ~/.bashrc"
 alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
@@ -261,4 +255,11 @@ function dp {
   dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   rm "$dirPath"/patch_files/* -v
   echo "Patch files removed."
+}
+
+# Use node-gh to send PR
+# SendPR function for submitting pull requests through nodeGH relating to JIRA tickets
+function sendPR() {
+    branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
+    gh pr -s "$1" -b "$2" -D "Hi @$1,<br><br>Attached is the fix for [$branch_name](http://issues.liferay.com/browse/$branch_name).<br><br>Let me know if you have any questions. Thanks."
 }
