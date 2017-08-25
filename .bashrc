@@ -229,7 +229,7 @@ function fp {
   local fileCount=$(ls $dirPath/patch_files | wc -l)
 
   if (( "$fileCount" > 0 )); then
-    echo -e "Patch folder already contains files!\nClear files before continuing."
+    echo -e "Patch folder already contains files!\nClear files before continuing with 'dp'."
     return "0"
   fi
   
