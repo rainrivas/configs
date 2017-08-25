@@ -228,7 +228,7 @@ function fp {
   local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
   local fileCount=$(ls $dirPath/patch_files | wc -l)
 
-  if (( "$fileCount" > 0 )); then
+  if [ "$fileCount" -gt "0" ]; then
     echo -e "\033[02;31mPatch folder already contains the following files:\033[01;00m"
     ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mRemoval required: \033[01;00m$file"; done
     echo -e "Clear files before continuing with 'dp'."
@@ -259,7 +259,7 @@ function ap {
 function dp {
   echo "Cleaning patch files."
   local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  rm "$dirPath"/patch_files/* -v | egrep --color '(removed)|&'
+  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;31mRemoved: \033[00;00m$file" && rm -f "$dirPath"/patch_files/"$file"; done
   echo "Patch files removed."
 }
 
