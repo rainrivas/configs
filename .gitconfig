@@ -7,12 +7,6 @@
 [color]
         ui = auto
 
-[github]
-	user = jwu910
-
-[include]
-	path = ~/.gitconfigcredentials
-
 [alias]
 	tr1=log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	tr2=log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
@@ -30,13 +24,6 @@
 	st = status
 
     # Git Tools
-	# @Requires the following scripts (all available in this repo):
-	# git-get-latest-jira-id
-	# get-getm
-	# git-sync-origin
-	# git-of-interest
-	# git-pull-request
-
 	## Committing
 	##--------
 
