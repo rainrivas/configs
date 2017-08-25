@@ -229,11 +229,14 @@ function fp {
   local fileCount=$(ls $dirPath/patch_files | wc -l)
 
   if (( "$fileCount" > 0 )); then
-    echo -e "Patch folder already contains files!\nClear files before continuing with 'dp'."
+    echo -e "\033[02;31mPatch folder already contains the following files:\033[01;00m"
+    ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mRemoval required: \033[01;00m$file"; done
+    echo -e "Clear files before continuing with 'dp'."
     return "0"
   fi
   
-  git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q
+  git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q || { dp; echo -e "\033[02;33mPatch files were not created. Check arguments and try again... Clearing any old patch files.\033[01;00m"; return; }  
+  
   echo -e "Patch files created in $dirPath/patch_files/"
   ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;32mCreated: \033[01;00m$file"; done
   echo "Navigate to topic branch and run command 'ap' to apply patch."
@@ -241,11 +244,10 @@ function fp {
 
 function ap {
   local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  echo "Would you like to apply these patch files?"
   ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
 
   while true; do
-    read -p "Continue?" yn
+    read -p "Would you like to apply these patch files?" yn
     case $yn in
           [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo "Resolve any conflicts before continuing or run 'dp' to delete patch files."; break;;
           [Nn]* ) echo "Breaking command"; break;;
@@ -257,7 +259,7 @@ function ap {
 function dp {
   echo "Cleaning patch files."
   local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  rm "$dirPath"/patch_files/* -v
+  rm "$dirPath"/patch_files/* -v | egrep --color '(removed)|&'
   echo "Patch files removed."
 }
 
