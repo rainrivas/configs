@@ -231,7 +231,7 @@ function fp {
   if [ "$fileCount" -gt "0" ]; then
     echo -e "\033[02;31mPatch folder already contains the following files:\033[01;00m"
     ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mRemoval required: \033[01;00m$file"; done
-    echo -e "Clear files before continuing with 'dp'."
+    echo -e "Clear or backup files before continuing. To clear all files, run 'dp'."
     return "0"
   fi
   
@@ -247,10 +247,10 @@ function ap {
   ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
 
   while true; do
-    read -p "Would you like to apply these patch files?" yn
+    read -p "Would you like to apply these patch files? (Y/N)" yn
     case $yn in
-          [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo "Resolve any conflicts before continuing or run 'dp' to delete patch files."; break;;
-          [Nn]* ) echo "Breaking command"; break;;
+          [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo -e "\033[00;33mIf there are merge conflicts, resolve in your text editor and use \033[00;32m'git am --continue', \033[00;31m'git am --abort', \033[00;00mor \033[00;33m'git am --skip'."; break;;
+          [Nn]* ) echo "Selected No, Exiting."; break;;
           * ) echo "Please answer yes or no.";;
     esac
   done
