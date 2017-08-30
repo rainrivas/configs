@@ -269,3 +269,9 @@ function sendPR() {
     local branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
     gh pr -s "$1" -b "$2" -D "Hi @$1,<br><br>Attached is the fix for [$branch_name](http://issues.liferay.com/browse/$branch_name).<br><br>Let me know if you have any questions. Thanks."
 }
+
+function rungradle2 {
+    mv ../settings.gradle ../settings.gradle.tmp
+    rungradle clean deploy
+    mv ../settings.gradle.tmp ../settings.gradle
+}
