@@ -252,7 +252,7 @@ function ap {
     case $yn in
           [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo -e "\033[00;33mIf there are merge conflicts, resolve in your text editor and use \033[00;32m'git am --continue', \033[00;31m'git am --abort', \033[00;00mor \033[00;33m'git am --skip'."; break;;
           [Nn]* ) echo "Selected No, Exiting."; break;;
-          * ) echo "Please answer yes or no.";;
+          * ) echo "Please answer yes or no."; break;;
     esac
   done
 }
