@@ -247,7 +247,8 @@ function ap {
   ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
 
   while true; do
-    read -p "Would you like to apply these patch files? (Y/N)" yn
+    echo "Would you like to apply these patch files? (Y/N)"    
+    read yn
     case $yn in
           [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo -e "\033[00;33mIf there are merge conflicts, resolve in your text editor and use \033[00;32m'git am --continue', \033[00;31m'git am --abort', \033[00;00mor \033[00;33m'git am --skip'."; break;;
           [Nn]* ) echo "Selected No, Exiting."; break;;
