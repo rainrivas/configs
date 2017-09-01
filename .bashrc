@@ -116,20 +116,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-export JAVA_HOME="/usr/bin/current"
-export ANT_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=512m"
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
-
-# Add git branch if its present to PS1
-parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
-}
-
 # drops first portion of a path $1 if length is greater than $2
 function __droppath {
     if [[ ${#1} -gt $2 ]]; then
@@ -143,6 +129,16 @@ function __droppath {
     fi
 }
 
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+
+# Add git branch if its present to PS1
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 if [ "$force_color_prompt" = yes ]; then
     PS1='\[\033[1m\]\[\033[33m\][${debian_chroot:+($debian_chroot)}\[\033[01;34m\]$(__droppath "\w" 50)\[\033[35m\]$(parse_git_branch)\[\033[33m\]]\[\033[00m\]\$ '
 else
@@ -151,38 +147,9 @@ fi
 
 unset color_prompt force_color_prompt
 
-# Liferay run-gradle script to find gradle files in parent directories for portlet deployment
-function rungradle {
-
-  # Rename settings.gradle temporarily
-  if [ -e settings.gradle ]
-    then
-      mv settings.gradle settings.gradle.tmp
-  fi
-
-  # Run regular gradle commands
-  local root_level=$(git rev-parse --show-toplevel 2>/dev/null)
-
-  if [[ -n "$root_level" && -f "$root_level/gradlew" ]]; then
-    root_level="$root_level/gradlew"
-  else
-    root_level=$(which gradle)
-  fi
-
-  "$root_level" $@
-
-  if [ -e settings.gradle.tmp ]
-    then
-      mv settings.gradle.tmp settings.gradle
-  fi
-}
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Alias update all
-alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
 
 # Aliases to start tomcat servers for portal
 # Jack-cli formatted to use lse and lsc git aliases. Takes 2 arguments: search-string, [branch-name]
@@ -206,73 +173,15 @@ function jlsc {
   fi
 }
 
-# Alias - locate JSP files in portal portlet
-alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -e " :: ${file##*/}\n$(cat $file)" > $file ; done'
+# Alias update all
+alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
 
 # Shortcut to open bashrc
 alias brc="nano ~/.bashrc"
+alias brcl="nano ~/configs/includes/.bashrc-liferay"
 alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
-
-# Alias to start server/kill
-alias runserver="echo 'Starting server.' && ../bundles/tomcat*/bin/catalina.sh run"
-alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
 
 # Rename Git
 alias g='git'
 
-# Git Format Patch
-
-# Usage: fp <# of commits> <Commit Sha>
-# Example: `fp 3 34s3446e`
-function fp {
-  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  local fileCount=$(ls $dirPath/patch_files | wc -l)
-
-  if [ "$fileCount" -gt "0" ]; then
-    echo -e "\033[02;31mPatch folder already contains the following files:\033[01;00m"
-    ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mRemoval required: \033[01;00m$file"; done
-    echo -e "Clear or backup files before continuing. To clear all files, run 'dp'."
-    return "0"
-  fi
-  
-  git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q || { dp; echo -e "\033[02;33mPatch files were not created. Check arguments and try again... Clearing any old patch files.\033[01;00m"; return; }  
-  
-  echo -e "Patch files created in $dirPath/patch_files/"
-  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;32mCreated: \033[01;00m$file"; done
-  echo "Navigate to topic branch and run command 'ap' to apply patch."
-}
-
-function ap {
-  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mPending: \033[01;00m$file"; done
-
-  while true; do
-    echo "Would you like to apply these patch files? (Y/N)"
-    read yn
-    case $yn in
-          [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo -e "\033[00;33mIf there are merge conflicts, resolve in your text editor and use \033[00;32m'git am --continue', \033[00;31m'git am --abort', \033[00;00mor \033[00;33m'git am --skip'."; break;;
-          [Nn]* ) echo "Selected No, Exiting."; break;;
-          * ) echo "Please answer yes or no."; break;;
-    esac
-  done
-}
-
-function dp {
-  echo "Cleaning patch files."
-  local dirPath=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
-  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;31mRemoved: \033[00;00m$file" && rm -f "$dirPath"/patch_files/"$file"; done
-  echo "Patch files removed."
-}
-
-# Use node-gh to send PR
-# SendPR function for submitting pull requests through nodeGH relating to JIRA tickets
-function sendPR() {
-    local branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
-    gh pr -s "$1" -b "$2" -D "Hi @$1,<br><br>Attached is the fix for [$branch_name](http://issues.liferay.com/browse/$branch_name).<br><br>Let me know if you have any questions. Thanks."
-}
-
-function rungradle2 {
-    mv ../settings.gradle ../settings.gradle.tmp
-    rungradle clean deploy
-    mv ../settings.gradle.tmp ../settings.gradle
-}
+source ~/configs/includes/.bashrc-liferay
