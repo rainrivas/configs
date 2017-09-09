@@ -1,3 +1,4 @@
+
 ############################################
 ## Liferay specific bashrc customizations ##
 ############################################
@@ -39,6 +40,8 @@ function rungradle {
   fi
 }
 
+alias rgcd='rungradle clean deploy'
+
 # Git Format Patch
 # Usage: fp <# of commits> <Commit Sha>
 # Example: `fp 3 34s3446e`
@@ -48,15 +51,30 @@ function fp {
 
   if [ "$fileCount" -gt "0" ]; then
     echo -e "\033[02;31mPatch folder already contains the following files:\033[01;00m"
-    ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mRemoval required: \033[01;00m$file"; done
-    echo -e "Clear or backup files before continuing. To clear all files, run 'dp'."
-    return "0"
+    ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;33mFile: \033[01;00m$file"; done
+
+    while true; do
+	echo -e "Y to keep existing files and continue. H to clear existing files and continue. N to stop and exit."
+        read yn
+        case $yn in
+            [Yy]* )
+		ls "$dirPath"/patch_files |
+		    while read -r file; do
+			mv "$dirPath"/patch_files/"$file" "$dirPath"/patch_files/old-"$file"
+		    done;
+		git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q; break;;
+	    [Hh]* ) dp && git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q; break;;
+            [Nn]* ) echo "Selected No, Exiting."; return "0"; break;;
+            * ) echo "Invalid response.";
+        esac
+    done
+
+  else
+    git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q || { dp; echo -e "\033[02;33mPatch files were not created. Check arguments and try again... Clearing any old patch files.\033[01;00m"; return; }
   fi
 
-  git format-patch -"$1" "$2" -o "$dirPath"/patch_files -q || { dp; echo -e "\033[02;33mPatch files were not created. Check arguments and try again... Clearing any old patch files.\033[01;00m"; return; }
-
-  echo -e "Patch files created in $dirPath/patch_files/"
-  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;32mCreated: \033[01;00m$file"; done
+  echo -e "Patch files in $dirPath/patch_files/"
+  ls "$dirPath"/patch_files | while read -r file; do echo -e "\033[03;32mFile: \033[01;00m$file"; done
   echo "Navigate to topic branch and run command 'ap' to apply patch."
 }
 
@@ -70,7 +88,7 @@ function ap {
     case $yn in
           [Yy]* ) git am -3 /"$dirPath"/patch_files/*; echo -e "\033[00;33mIf there are merge conflicts, resolve in your text editor and use \033[00;32m'git am --continue', \033[00;31m'git am --abort', \033[00;00mor \033[00;33m'git am --skip'."; break;;
           [Nn]* ) echo "Selected No, Exiting."; break;;
-          * ) echo "Please answer yes or no."; break;;
+          * ) echo "Invalid response.";
     esac
   done
 }
@@ -93,4 +111,9 @@ function rungradle2 {
     mv ../settings.gradle ../settings.gradle.tmp
     rungradle clean deploy
     mv ../settings.gradle.tmp ../settings.gradle
+}
+
+function jira {
+    local branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
+    xdg-open https://issues.liferay.com/browse/"$branch_name" || open https://issues.liferay.com/browse/"$branch_name" || echo "Could not open Jira."
 }
