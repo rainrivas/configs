@@ -151,28 +151,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Aliases to start tomcat servers for portal
-# Jack-cli formatted to use lse and lsc git aliases. Takes 2 arguments: search-string, [branch-name]
-function jlse {
-  if [ -n "$2" ] && [ -n "$1" ]; then
-    jack "$2" --stat --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
-  elif [ -z "$2" ] && [ -n "$1" ]; then
-    jack --stat --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
-  else
-    echo "Please pass at least one argument [search-string]. Example 'jlse LPS-99999 master'"
-  fi
-}
-
-function jlsc {
-  if [ -n "$2" ] && [ -n "$1" ]; then
-    jack "$2" --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
-  elif [ -z "$2" ] && [ -n "$1" ]; then
-    jack --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
-  else
-    echo "Please pass at least one argument [search-string]. Example 'jlse LPS-99999 master'"
-  fi
-}
-
 # Alias update all
 alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
 
@@ -185,3 +163,6 @@ alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
 alias g='git'
 
 source ~/configs/includes/.bashrc-liferay
+
+# Restart network manager
+alias restartnetwork="echo Restarting network manager. && sudo systemctl restart network-manager.service"

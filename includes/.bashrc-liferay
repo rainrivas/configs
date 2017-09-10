@@ -100,6 +100,28 @@ function dp {
   echo "Patch files removed."
 }
 
+# Aliases to start tomcat servers for portal
+# Jack-cli formatted to use lse and lsc git aliases. Takes 2 arguments: search-string, [branch-name]
+function jlse {
+  if [ -n "$2" ] && [ -n "$1" ]; then
+    jack "$2" --stat --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
+  elif [ -z "$2" ] && [ -n "$1" ]; then
+    jack --stat --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
+  else
+    echo "Please pass at least one argument [search-string]. Example 'jlse LPS-99999 master'"
+  fi
+}
+
+function jlsc {
+  if [ -n "$2" ] && [ -n "$1" ]; then
+    jack "$2" --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
+  elif [ -z "$2" ] && [ -n "$1" ]; then
+    jack --grep "$1" --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)';
+  else
+    echo "Please pass at least one argument [search-string]. Example 'jlse LPS-99999 master'"
+  fi
+}
+
 # Use node-gh to send PR
 # SendPR function for submitting pull requests through nodeGH relating to JIRA tickets
 function sendPR() {
