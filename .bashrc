@@ -165,4 +165,4 @@ alias g='git'
 source ~/configs/includes/.bashrc-liferay
 
 # Restart network manager
-alias restartnetwork="echo Restarting network manager. && sudo systemctl restart network-manager.service"
+alias restartnetwork="sudo systemctl restart network-manager.service && echo Network manager restarting..."
