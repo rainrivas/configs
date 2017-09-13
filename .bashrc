@@ -166,3 +166,6 @@ source ~/configs/includes/.bashrc-liferay
 
 # Restart network manager
 alias restartnetwork="sudo systemctl restart network-manager.service && echo Network manager restarting..."
+
+# Start github
+alias ghub="xdg-open https://github.com/jwu910"
