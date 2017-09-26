@@ -139,3 +139,9 @@ function jira {
     local branch_name=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
     xdg-open https://issues.liferay.com/browse/"$branch_name" || open https://issues.liferay.com/browse/"$branch_name" || echo "Could not open Jira."
 }
+
+alias loopdir="cd ~/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
+alias 62xdir="cd ~/liferay/ee-6.2.x/liferay-portal-ee/"
+alias 70xdir="cd ~/liferay/7.0.x/liferay-portal-ee/"
+alias 70xpdir="cd ~/liferay/7.0.x-private/liferay-portal-ee/"
+alias masterdir="cd ~/liferay/ce-master/liferay-portal/"
