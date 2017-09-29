@@ -1,4 +1,5 @@
 
+
 ############################################
 ## Liferay specific bashrc customizations ##
 ############################################
@@ -140,8 +141,23 @@ function jira {
     xdg-open https://issues.liferay.com/browse/"$branch_name" || open https://issues.liferay.com/browse/"$branch_name" || echo "Could not open Jira."
 }
 
-alias loopdir="cd ~/**/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
-alias 62xdir="cd ~/**/liferay/ee-6.2.x/liferay-portal-ee/"
-alias 70xdir="cd ~/**/liferay/7.0.x/liferay-portal-ee/"
-alias 70xpdir="cd ~/**/liferay/7.0.x-private/liferay-portal-ee/"
-alias masterdir="cd ~/**/liferay/ce-master/liferay-portal/"
+alias loopdir="cd /home/**/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
+alias 62xdir="cd /home/**/liferay/ee-6.2.x/liferay-portal-ee/"
+alias 70xdir="cd /home/**/liferay/7.0.x/liferay-portal-ee/"
+alias 70xpdir="cd /home/**/liferay/7.0.x-private/liferay-portal-ee/"
+alias masterdir="cd /home/**/liferay/ce-master/liferay-portal/"
+
+function lsl {
+	local src_dir="$HOME/**/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/docroot/js/dist"
+	local dst_dir="$HOME/**/liferay/ee-6.2.x/bundles/tomcat-7.0.62/webapps/loop-portlet/js/dist"
+
+	for file in "$src_dir"/*; do
+		local filename=${file##*/}
+		local dst="$dst_dir/$filename"
+
+		[ -e "$dst" ] && rm "$dst"
+
+		echo "Linking $filename"
+		ln -f "$file" "$dst"
+	done
+}
