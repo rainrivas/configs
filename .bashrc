@@ -159,13 +159,10 @@ alias brc="nano ~/.bashrc"
 alias brcl="nano ~/configs/includes/.bashrc-liferay"
 alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
 
-# Rename Git
-alias g='git'
-
-source ~/configs/includes/.bashrc-liferay
-
 # Restart network manager
 alias restartnetwork="sudo systemctl restart network-manager.service && echo Network manager restarting..."
 
 # Start github
 alias ghub="xdg-open https://github.com/jwu910"
+
+source ~/configs/includes/.bashrc-liferay
