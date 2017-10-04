@@ -11,9 +11,13 @@ export ANT_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=512m"
 alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -e " :: ${file##*/}\n$(cat $file)" > $file ; done'
 
 # Alias to start server/kill
-alias runserver="echo 'Starting server.' && ../bundles/tomcat*/bin/catalina.sh run"
-alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
+function runserver {
+  local repoRoot=$(git rev-parse --show-toplevel 2>/dev/null)
+  echo "Starting server..."
+  cd "$repoRoot" && ../bundles/tomcat*/bin/catalina.sh run | grep -E --color=always 'ERROR|$'
+}
 
+alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
 
 # Liferay run-gradle script to find gradle files in parent directories for portlet deployment
 function rungradle {
