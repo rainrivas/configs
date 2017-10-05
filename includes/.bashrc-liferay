@@ -14,7 +14,7 @@ alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -
 function runserver {
   local repoRoot=$(git rev-parse --show-toplevel 2>/dev/null)
   echo "Starting server..."
-  cd "$repoRoot" && ../bundles/tomcat*/bin/catalina.sh run | grep -E --color=always 'ERROR|$'
+  cd "$repoRoot" && ../bundles/tomcat*/bin/catalina.sh run | grep -E --color=always 'ERROR|Caused by|$'
 }
 
 alias killserver='echo Killing Tomcat && kill -9 `ps aux | grep -v grep | grep tomcat | awk '"'"'{print $2}'"'"'`'
@@ -164,4 +164,26 @@ function lsl {
     echo "Linking $filename"
     ln -f "$file" "$dst"
   done
+}
+
+function deployLoop {
+  local deploy=ant clean deploy
+
+  loopdir && "$deploy" &&
+  cd ../asset-entry-set-portlet && "$deploy" &&
+  cd ../asset-sharing-portlet && "$deploy" &&
+  cd ../push-notifications-portlet && "$deploy" &&
+  cd ../token-auth-portlet && "$deploy" &&
+  cd ../marketplace-portlet && "$deploy" &&
+  cd ../../themes/loop-theme && "$deploy" &&
+  cd ../../hooks/portal-compat-hook && "$deploy" &&
+  cd ../../webs/url-metadata-scraper-web && "$deploy" &&
+  cd ../../portlets/loop-portlet && "$deploy" &&
+  clear &&
+  echo Loop deployed.
+}
+
+function fixSql {
+  echo "SET SESSION sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'"
+  echo "SET GLOBAL sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'"
 }
