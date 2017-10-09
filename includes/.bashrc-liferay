@@ -1,11 +1,12 @@
 
-
 ############################################
 ## Liferay specific bashrc customizations ##
 ############################################
 
 export JAVA_HOME="/usr/bin/current"
 export ANT_OPTS="-Xms2048m -Xmx4096m -XX:MaxPermSize=512m"
+
+LIFERAY_DIR=`find ~ -maxdepth 3 -type d -name 'liferay' -print -quit`
 
 # Alias - locate JSP files in portal portlet
 alias findjsp='for file in `git ls-files | grep -v init | grep .jsp` ; do echo -e " :: ${file##*/}\n$(cat $file)" > $file ; done'
@@ -145,15 +146,15 @@ function jira {
     xdg-open https://issues.liferay.com/browse/"$branch_name" || open https://issues.liferay.com/browse/"$branch_name" || echo "Could not open Jira."
 }
 
-alias loopdir="cd /home/**/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
-alias 62xdir="cd /home/**/liferay/ee-6.2.x/liferay-portal-ee/"
-alias 70xdir="cd /home/**/liferay/7.0.x/liferay-portal-ee/"
-alias 70xpdir="cd /home/**/liferay/7.0.x-private/liferay-portal-ee/"
-alias masterdir="cd /home/**/liferay/ce-master/liferay-portal/"
+alias loopdir="cd $LIFERAY_DIR/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
+alias 62xdir="cd $LIFERAY_DIR/liferay/ee-6.2.x/liferay-portal-ee/"
+alias 70xdir="cd $LIFERAY_DIR/liferay/7.0.x/liferay-portal-ee/"
+alias 70xpdir="cd $LIFERAY_DIR/liferay/7.0.x-private/liferay-portal-ee/"
+alias masterdir="cd $LIFERAY_DIR/liferay/ce-master/liferay-portal/"
 
 function lsl {
-  local src_dir="$HOME/liferay/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/docroot/js/dist"
-  local dst_dir="$HOME/liferay/ee-6.2.x/bundles/tomcat-7.0.62/webapps/loop-portlet/js/dist"
+  local src_dir="$LIFERAY_DIR/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/docroot/js/dist"
+  local dst_dir="$LIFERAY_DIR/ee-6.2.x/bundles/tomcat-7.0.62/webapps/loop-portlet/js/dist"
 
   for file in "$src_dir"/*; do
     local filename=${file##*/}
