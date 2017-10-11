@@ -147,10 +147,10 @@ function jira {
 }
 
 alias loopdir="cd $LIFERAY_DIR/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/"
-alias 62xdir="cd $LIFERAY_DIR/liferay/ee-6.2.x/liferay-portal-ee/"
-alias 70xdir="cd $LIFERAY_DIR/liferay/7.0.x/liferay-portal-ee/"
-alias 70xpdir="cd $LIFERAY_DIR/liferay/7.0.x-private/liferay-portal-ee/"
-alias masterdir="cd $LIFERAY_DIR/liferay/ce-master/liferay-portal/"
+alias 62xdir="cd $LIFERAY_DIR/ee-6.2.x/liferay-portal-ee/"
+alias 70xdir="cd $LIFERAY_DIR/7.0.x/liferay-portal-ee/"
+alias 70xpdir="cd $LIFERAY_DIR/7.0.x-private/liferay-portal-ee/"
+alias masterdir="cd $LIFERAY_DIR/ce-master/liferay-portal/"
 
 function lsl {
   local src_dir="$LIFERAY_DIR/ee-6.2.x/liferay-plugins-ee/portlets/loop-portlet/docroot/js/dist"
