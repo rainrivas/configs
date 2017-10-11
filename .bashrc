@@ -147,10 +147,6 @@ fi
 
 unset color_prompt force_color_prompt
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Alias update all
 alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
 
@@ -164,5 +160,9 @@ alias restartnetwork="sudo systemctl restart network-manager.service && echo Net
 
 # Start github
 alias ghub="xdg-open https://github.com/jwu910"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
 
 source ~/configs/includes/.bashrc-liferay
