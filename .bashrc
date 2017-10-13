@@ -164,5 +164,8 @@ alias ghub="xdg-open https://github.com/jwu910"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
+alias scrshot='sh ~/configs/scripts/screenshot.sh -s'
 
 source ~/configs/includes/.bashrc-liferay
+
+
