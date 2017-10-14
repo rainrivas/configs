@@ -8,9 +8,9 @@
 set $FONT pango:Source Code Pro 12
 set $BORDER_SIZE 1
 
-set $bg_active                  #667F86
+set $bg_active                  #FFA500
 set $bg_inactive                #002B36
-set $bg_urgent                   #FF2800
+set $bg_urgent                  #FF2800
 
 set $border_active              $bg_active
 set $border_inactive            $bg_inactive
@@ -234,13 +234,14 @@ exec compton -bcCfG --detect-client-opacity --fade-delta=5 --shadow-opacity=0.5 
 #exec --no-startup-id syndaemon -i 0.5 -t -K -R
 
 #exec guake
-#exec nitrogen --restore &
+exec nitrogen --restore &
 exec redshift -l 34.132268:-117.961578
 #exec_always --no-startup-id "/home/kdo/dotfiles/scripts/polybar-run"
 
-#exec google-chrome-stable --force-device-scale-factor=1.2 --restore-last-session
-exec --no-startup-id "google-chrome-stable  --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev"
+exec google-chrome-stable --force-device-scale-factor=1.2 --restore-last-session
+exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev"
 exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://web.skype.com"
 
 #exec xautolock -locker i3lock -fi ~/Pictures/wallpapers/unknown-woman.jpg
 
+exec --no-startup-id "setMonitor"
