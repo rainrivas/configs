@@ -159,7 +159,20 @@ alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
 alias restartnetwork="sudo systemctl restart network-manager.service && echo Network manager restarting..."
 
 # Start github
-alias ghub="xdg-open https://github.com/jwu910"
+function ghub {
+	local remote=${1:-"origin"}
+	local giturl=$(git config --get "remote.${remote}.url")
+	giturl=${giturl%/}
+	giturl=${giturl%.git}
+	local uri=${giturl##*@}
+		uri=${uri##*://}
+	local urlPath=${uri#*[/:]*}
+	local openUrl="https://github.com/$urlPath"    
+	xdg-open $openUrl &
+}
+
+
+
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -167,5 +180,4 @@ export NVM_DIR="$HOME/.nvm"
 alias scrshot='sh ~/configs/scripts/screenshot.sh -s'
 
 source ~/configs/includes/.bashrc-liferay
-
-
+	
