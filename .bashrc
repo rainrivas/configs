@@ -171,11 +171,8 @@ function ghub {
 	xdg-open $openUrl &
 }
 
-
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+export NVM_DIR="/usr/share/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 alias scrshot='sh ~/configs/scripts/screenshot.sh -s'
 
