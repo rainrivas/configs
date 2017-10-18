@@ -47,7 +47,7 @@ client.placeholder      $border_inactive    $bg_inactive        $text_inactive  
 #######################################################################
 
 # set mod key to alt
-set $mod Mod1
+set $mod Mod4
 
 # set navigation keys to vim key bindings
 set $up k
@@ -225,11 +225,17 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 # Startup Programs
 ##############################################################################
 
+bar {
+	status_command python ~/configs/statusbar/i3pystatus/i3pystatusconfig.py
+	position top
+	workspace_buttons yes
+}
+
 exec xrandr --setprovideroutputsource nouveau Intel
 exec compton -bcCfG --detect-client-opacity --fade-delta=5 --shadow-opacity=0.5 --shadow-offset-x=-5 --shadow-offset-y=-5 &
 #exec --no-startup-id blueman-applet
 #exec --no-startup-id dunst
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
 #exec --no-startup-id powertop --auto-tune
 #exec --no-startup-id syndaemon -i 0.5 -t -K -R
 
@@ -241,7 +247,5 @@ exec redshift -l 34.132268:-117.961578
 exec google-chrome-stable --force-device-scale-factor=1.2 --restore-last-session
 exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev"
 exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://web.skype.com"
-
-#exec xautolock -locker i3lock -fi ~/Pictures/wallpapers/unknown-woman.jpg
 
 exec --no-startup-id "setMonitor"
