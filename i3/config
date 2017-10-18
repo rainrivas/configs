@@ -28,7 +28,7 @@ set $indicator                  #03C0FF
 font $FONT
 
 # Gap size
-gaps inner 30
+gaps inner 15
 
 # Borders
 for_window [class="^.*"] border pixel $BORDER_SIZE
