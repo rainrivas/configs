@@ -2,11 +2,11 @@
 	tr1=log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	tr2=log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n'' %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 
-        # Git log search Expanded - Takes search string as first parameter - Displays file's changed in each commit
-        lse =  "!f() { git --no-pager log --stat --grep $1 --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)'; }; f"
+		# Git log search Expanded - Takes search string as first parameter - Displays file's changed in each commit
+		lse =  "!f() { git --no-pager log --stat --grep $1 --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)'; }; f"
 
-        # Git log search Compact - Takes search string as first parameter - Displays compact view of commit information
-        lsc =  "!f() { git --no-pager log --grep $1 --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)'; }; f"
+		# Git log search Compact - Takes search string as first parameter - Displays compact view of commit information
+		lsc =  "!f() { git --no-pager log --grep $1 --pretty=format:'%C(yellow)%h%Creset %C(white)%s - %an%Creset (%C(green)%ar%Creset)'; }; f"
 
 	# Rename current branch
 	rnb = "!f() { git branch -m $1 && echo Branch renamed to $1; }; f"
@@ -14,7 +14,10 @@
 	# Status
 	st = status
 
-    # Git Tools
+	# Pull changes from upstream
+	pc = "!f() { git pull --rebase $1 $2; }; f"
+
+	# Git Tools
 	## Committing
 	##--------
 
