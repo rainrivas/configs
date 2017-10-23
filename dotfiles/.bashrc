@@ -175,9 +175,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 alias scrshot='sh ~/configs/scripts/screenshot.sh -s'
-
-source ~/configs/includes/.bashrc-liferay
 	
 if [ -d "$HOME/.bin" ] ; then
   PATH="$PATH:$HOME/.bin"
 fi
+
+source ~/configs/includes/.bashrc-liferay

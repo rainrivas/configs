@@ -192,5 +192,10 @@ alias setMonitor="sh ~/configs/layouts/work-extended-primary.sh"
 
 alias i3config="vim ~/configs/i3/config"
 
-alias sfm="!f() { git diff --stat --name-only $(git getm).. | grep -E '.(jsp.?|vm|ftl|tag|tpl|tmpl|js|soy|hbs|(s)?css)$' | tr \"\\n\" \"\\0\" | xargs -0 -J{} check_sf {} $@; }; f"
-
+function sfm {	
+if [ "$1" ]; then		
+	git diff --stat --relative --name-only "$1".. | grep -E '.(tag|jsp.?|vm|ftl|js|(s)?css)$' | xargs check_sf;	
+else		
+	echo -e "$fg_bold[red]Please choose a branch to compare changes to.$reset_color EG: sfm ee-6.2.x"	
+fi
+}
