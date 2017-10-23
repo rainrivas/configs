@@ -14,11 +14,6 @@
 	# Status
 	st = status
 
-	finda = "!grepalias() { git config --get-regexp alias | grep -i \"$1\" | awk -v nr=2 '{sub(/^alias\\./,\"\")};{printf \"\\033[31m%_10s\\033[1;37m\", $1};{sep=FS};{for (x=nr; x<=NF; x++) {printf \"%s%s\", sep, $x; }; print \"\\033[0;39m\"}'; }; grepalias"
-
-	# Check Source Formatting
-	sfm = "!f() { git diff --stat --name-only $(git getm) | grep -E '.(jsp.?|vm|ftl|tag|tpl|tmpl|js|soy|hbs|(s)?css)$' | tr \"\\n\" \"\\0\" | xargs -0 check_sf $@; }; f"
-	
     # Git Tools
 	## Committing
 	##--------
