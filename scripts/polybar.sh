@@ -7,5 +7,5 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 #polybar bar2 -c ~/configs/polybar/polybar.conf &
-polybar topbar2 -c ~/configs/polybar/polybar.conf &
+polybar laptopStatus -c ~/configs/polybar/polybar.conf &
 
