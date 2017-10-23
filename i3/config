@@ -229,6 +229,7 @@ bar {
 	status_command python ~/configs/statusbar/i3pystatus/i3pystatusconfig.py
 	position top
 	workspace_buttons yes
+	font pango:DejaVu Sans Mono 12
 }
 
 exec xrandr --setprovideroutputsource nouveau Intel
