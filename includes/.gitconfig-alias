@@ -14,7 +14,7 @@
 	# Status
 	st = status
 
-	# Pull changes from upstream
+	# Pull changes from upstream. Takes two arguments 'remote' and 'branch'
 	pc = "!f() { git pull --rebase $1 $2; }; f"
 
 	# Git Tools
