@@ -11,6 +11,7 @@ status.register("pulseaudio",
 # Shows your CPU temperature, if you have an Intel CPU
 status.register("temp",
     format="{temp:.0f}°C",)
+
 # Displays clock like this:
 # Tue 30 Jul 11:59:46 PM KW31
 #                          ^-- calendar week
@@ -85,13 +86,17 @@ status.register("battery",
 #     # format="Mem:{used}/{total}G[{avail}G]",)
 #     format="AvailMem:{avail}Gb",)
 
-status.register("spotify",
+status.register("now_playing",
     status={
         "pause": "▷",
         "play": "▶",
         "stop": "◾",
     },
-    format="{title}{status}",)
+    format="{status} {artist} - {title} ",
+    on_upscroll=[],
+    on_downscroll=[],
+    on_middleclick=[],
+    on_rightclick=["player_command", "Stop"],)
 
 # Shows mpd status
 # Format:
