@@ -147,8 +147,8 @@ fi
 
 unset color_prompt force_color_prompt
 
-# Alias update all
-alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
+# Alias update all ## Ubuntu
+#alias updateall='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y; sudo apt autoclean'
 
 # Shortcut to open bashrc
 alias brc="nano ~/.bashrc"
@@ -195,4 +195,5 @@ function gitGud {
     echo " \______/                      \______/                     ";
 }
 export -f gitGud
+
 source ~/configs/includes/.bashrc-liferay
