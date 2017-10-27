@@ -192,10 +192,67 @@ alias setMonitor="sh ~/configs/scripts/work-extended-primary.sh"
 
 alias i3config="vim ~/configs/i3/config"
 
-function sfm {	
-if [ "$1" ]; then		
-	git diff --stat --relative --name-only "$1".. | grep -E '.(tag|jsp.?|vm|ftl|js|(s)?css)$' | xargs check_sf;	
+function sfm {
+if [ "$1" ]; then
+  git diff --stat --relative --name-only "$1".. | grep -E '.(tag|jsp.?|vm|ftl|js|(s)?css)$' | xargs check_sf;
 else		
-	echo -e "$fg_bold[red]Please choose a branch to compare changes to.$reset_color EG: sfm ee-6.2.x"	
+  echo -e "$fg_bold[red]Please choose a branch to compare changes to.$reset_color EG: sfm ee-6.2.x"
 fi
+}
+
+function openCommitsIn {
+  filesChanged() {
+    git log --grep "$1" --stat --name-only | grep -E ".(tag|jsp.?|vm|ftl|js|(s)?css)$" | sort | uniq
+  }
+
+  openFiles() {
+    echo "Opening files."
+    local repoRoot=$(git rev-parse --show-toplevel 2>/dev/null)
+    cd "$repoRoot"
+    filesChanged "$TICKET" | xargs subl
+    return
+  }
+
+  filesNotFound() {
+    echo "Ticket not found, please use 'openCommitsIn <XXXXX-0000>' format and verify your ticket exists in this branch."
+  }
+
+  if [ -z "$1" ]; then
+    local TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
+    echo "No ticket entered, using branch name ($TICKET)."
+  else
+    if [[ $1 =~ ^([A-Z]{3,}-)([0-9]+)$ ]]; then
+      echo "Using $1"
+      local TICKET="$1"
+    else
+      filesNotFound
+      return
+    fi
+  fi
+
+  local FILES=$(filesChanged $TICKET)
+  local FILES_COUNT=$(filesChanged $TICKET | wc -l)
+  local MIN_THRESH=5
+  local ZERO=0
+
+  if [[ $FILES_COUNT -eq $ZERO ]]; then
+    filesNotFound
+    return
+  elif [[ $FILES_COUNT -ge $MIN_THRESH ]]; then
+    while true; do
+      echo -e "Open $FILES_COUNT files? (Y/n)"
+      read yn
+      case $yn in
+        [Yy]* )
+          openFiles
+          break;;
+        [Nn]* )
+          return; break;;
+        * )
+          echo "Invalid response, please enter Y or N."; break;;
+      esac
+    done
+  else
+    openFiles
+  fi
 }
