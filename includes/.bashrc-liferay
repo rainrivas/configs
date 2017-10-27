@@ -243,8 +243,7 @@ function openCommitsIn {
       read yn
       case $yn in
         [Yy]* )
-          openFiles
-          break;;
+          openFiles; break;;
         [Nn]* )
           return; break;;
         * )
@@ -253,5 +252,6 @@ function openCommitsIn {
     done
   else
     openFiles
+    return
   fi
 }
