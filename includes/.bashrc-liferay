@@ -195,7 +195,7 @@ alias i3config="vim ~/configs/i3/config"
 function sfm {
 if [ "$1" ]; then
   git diff --stat --relative --name-only "$1".. | grep -E '.(tag|jsp.?|vm|ftl|js|(s)?css)$' | xargs check_sf;
-else		
+else
   echo -e "$fg_bold[red]Please choose a branch to compare changes to.$reset_color EG: sfm ee-6.2.x"
 fi
 }
@@ -212,9 +212,11 @@ function openCommitsIn {
 
   openFiles() {
     echo "Opening files."
+    local cwd=`pwd`
     local repoRoot=$(git rev-parse --show-toplevel 2>/dev/null)
     cd "$repoRoot"
     filesChanged "$TICKET" | xargs "$FILE_EDITOR"
+    cd $cwd
     return
   }
 
