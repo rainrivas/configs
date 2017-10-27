@@ -211,9 +211,11 @@ function openCommitsIn {
   }
 
   openFiles() {
-    echo "Opening files."
     local cwd=`pwd`
     local repoRoot=$(git rev-parse --show-toplevel 2>/dev/null)
+
+    echo "Opening files."
+
     cd "$repoRoot"
     filesChanged "$TICKET" | xargs "$FILE_EDITOR"
     cd $cwd
@@ -226,11 +228,13 @@ function openCommitsIn {
 
   if [ -z "$1" ]; then
     local TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eo '([A-Z]{3,}-)([0-9]+)' -m 1)
+    
     echo "No ticket entered, using branch name $TICKET."
   else
     if [[ $1 =~ ^([A-Z]{3,}-)([0-9]+)$ ]]; then
-      echo "Using $1"
       local TICKET="$1"
+
+      echo "Using $TICKET"
     else
       filesNotFound
       return
