@@ -233,12 +233,11 @@ function openCommitsIn {
   local FILES=$(filesChanged $TICKET)
   local FILES_COUNT=$(filesChanged $TICKET | wc -l)
   local MIN_THRESH=5
-  local ZERO=0
 
-  if [[ $FILES_COUNT -eq $ZERO ]]; then
+  if [ $FILES_COUNT -eq "0" ]; then
     filesNotFound
     return
-  elif [[ $FILES_COUNT -ge $MIN_THRESH ]]; then
+  elif [ $FILES_COUNT -ge $MIN_THRESH ]; then
     while true; do
       echo -e "Open $FILES_COUNT files? (Y/n)"
       read yn
