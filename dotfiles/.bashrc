@@ -196,4 +196,8 @@ function gitGud {
 }
 export -f gitGud
 
+# Personal scripts path
+PATH=$PATH:/home/joshua/configs/scripts
+export PATH
+
 source ~/configs/includes/.bashrc-liferay
