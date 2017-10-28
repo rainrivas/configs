@@ -200,4 +200,6 @@ export -f gitGud
 PATH=$PATH:/home/joshua/configs/scripts
 export PATH
 
+EDITOR="subl"
+
 source ~/configs/includes/.bashrc-liferay

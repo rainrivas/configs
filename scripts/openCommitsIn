@@ -2,9 +2,7 @@
 
 # Takes one optional argument [JIRA TICKET NUM] in the format XXXX-0000. e.g. LOOP-1234.
 # Opens all files changed associated with JIRA ticket. If no argument is provided, JIRA ticket is attempted to be taken from branch name.
-echo "hello" 
 
-# FILE_EDITOR="subl"
 FILE_EDITOR=$EDITOR
 MIN_THRESH=5
 
