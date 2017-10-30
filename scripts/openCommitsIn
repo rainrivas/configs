@@ -23,7 +23,9 @@ openFiles() {
 }
 
 filesNotFound() {
-  echo "$1 asdfsd was not found in branch log, please use 'openCommitsIn <XXXXX-0000>' format and verify your ticket exists in this branch. e.g. 'openCommitsIn LOOP-1234'"
+  echo "$1 was not found in branch log. openCommitsIn take's one optional argument [TICKET-NUMBER] with the expectation"
+  echo "that your branch commit message naming convention follows the standard of 'JIRA-TICKET - Commit message'" 
+  echo "Please ensure ticket format is '<XXXXX-0000>' e.g.: openCommitsIn LOOP-1234"
   exit 1
 }
 
@@ -56,7 +58,7 @@ elif [ $FILES_COUNT -ge $MIN_THRESH ]; then
       [Yy]* )
         openFiles; break;;
       [Nn]* )
-        return; break;;
+        exit 0; break;;
       * )
         echo "Invalid response, please enter Y or N."; break;;
     esac
