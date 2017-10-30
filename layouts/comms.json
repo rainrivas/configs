@@ -1,0 +1,52 @@
+
+{
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "type": "con",
+            "swallows": [
+                {
+                    "class": "^Google-chrome$"
+                }
+            ]
+        },
+        {
+            "type": "con",
+            "swallows": [
+                {
+                    "class": "^Google-chrome$"
+                }
+            ]
+        }
+    ]
+}
+
+{
+    "layout": "splitv",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "type": "con",
+            "swallows": [
+                {
+                    "class": "^Discord$",
+                    "instance": "^discord$",
+                    "transient_for": "^$",
+                    "window_role": "^browser-window$"
+                }
+            ]
+        },
+        {
+            "type": "con",
+            "swallows": [
+                {
+                    "class": "^Spotify$",
+                    "instance": "^spotify$"
+                }
+            ]
+        }
+    ]
+}

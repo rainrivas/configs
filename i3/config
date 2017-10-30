@@ -5,7 +5,7 @@
 #######################################################################
 
 # Theme variables
-set $FONT pango:Source Code Pro 14
+set $FONT pango:Source Code Pro 12
 set $BORDER_SIZE 1
 
 set $bg_active                  #FD9226
@@ -33,7 +33,7 @@ gaps inner 20
 # Borders
 for_window [class="^.*"] border pixel $BORDER_SIZE
 
-#for_window [class="^Gnome-terminal$"] border pixel $BORDER_SIZE
+for_window [class="^Gnome-terminal$"] border pixel $BORDER_SIZE
 
 # Appearance            border              background          text                 indicator
 client.focused          $border_active      $bg_active          $text_active         $border_active
@@ -248,8 +248,12 @@ exec nitrogen --restore &
 exec redshift -l 34.132268:-117.961578
 #exec_always --no-startup-id "/home/kdo/dotfiles/scripts/polybar-run"
 
-exec google-chrome-stable --force-device-scale-factor=1.2 --restore-last-session
-exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev"
-exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://web.skype.com"
+#i3-msg "workspace 1; 
+exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --restore-last-session"
+#exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev"
+#exec --no-startup-id "google-chrome-stable --force-device-scale-factor=1.2 --app=https://web.skype.com"
 
 exec --no-startup-id "sh ~/configs/scripts/set_monitor.sh"
+
+exec --no-startup-id dev
+exec --no-startup-id comms

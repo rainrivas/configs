@@ -1,0 +1,8 @@
+#!/bin/bash
+
+workspace="4:   "
+
+i3-msg "workspace $workspace; append_layout /home/joshua/configs/layouts/comms.json"
+
+i3-msg "workspace $workspace; exec google-chrome-stable --force-device-scale-factor=1.2 --app=https://liferayeng.slack.com/messages/frontend-dev;"
+i3-msg "workspace $workspace; exec google-chrome-stable --force-device-scale-factor=1.2 --app=https://web.skype.com;"
