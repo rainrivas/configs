@@ -4,8 +4,6 @@
 # Opens all files changed associated with JIRA ticket. If no argument is provided, JIRA ticket is attempted to be taken from branch name.
 
 ### Check environment variable dependencies
-  # echo "${TEXT_EDITOR:?Environment variable not set.}"
-
 if [ -z "$TEXT_EDITOR" ]; then
   echo "=========================================================================================="
   echo "| Please set environment variable TEXT_EDITOR to your favorite non-terminal text editor. |"
@@ -14,7 +12,6 @@ if [ -z "$TEXT_EDITOR" ]; then
   echo "|     export TEXT_EDITOR=\"subl\"                                                          |"
   echo "=========================================================================================="
 fi
-
 ### End check environment variable dependencies
 
 FILE_EDITOR=$TEXT_EDITOR
