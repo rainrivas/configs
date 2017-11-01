@@ -32,19 +32,17 @@
             "type": "con",
             "swallows": [
                 {
-                    "class": "^Discord$",
-                    "instance": "^discord$",
-                    "transient_for": "^$",
-                    "window_role": "^browser-window$"
-                }
+                    "class": "^Google-chrome$",
+		    "role": "^Discord$"
+		}
             ]
         },
         {
             "type": "con",
             "swallows": [
                 {
-                    "class": "^Spotify$",
-                    "instance": "^spotify$"
+                    "class": "^Google-chrome$",
+		    "role": "^Spotify$"
                 }
             ]
         }
