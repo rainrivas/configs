@@ -202,7 +202,7 @@ export -f gitGud
 PATH=$PATH:/home/joshua/configs/scripts
 export PATH
 
-EDITOR="subl"
+EDITOR="nano"
 
 alias fixWatches="echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
 
