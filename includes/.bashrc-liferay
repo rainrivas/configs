@@ -178,6 +178,7 @@ function deployLoop {
   cd ../../themes/loop-theme && "$deploy" &&
   cd ../../hooks/portal-compat-hook && "$deploy" &&
   cd ../../webs/url-metadata-scraper-web && "$deploy" &&
+  cd ../elasticsearch-web && "$deploy" &&
   cd ../../portlets/loop-portlet && "$deploy" &&
   clear &&
   echo Loop deployed.
