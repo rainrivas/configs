@@ -207,3 +207,6 @@ export TEXT_EDITOR="subl"
 alias fixWatches="echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
 
 source ~/configs/includes/.bashrc-liferay
+
+# Adding autocomplete for 'we'
+[ -f ~/.we_autocomplete ] && source ~/.we_autocomplete
