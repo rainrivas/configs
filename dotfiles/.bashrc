@@ -156,7 +156,7 @@ alias brcl="nano ~/configs/includes/.bashrc-liferay"
 alias sbrc="source ~/.bashrc && echo '.bashrc reloaded.'"
 
 # Restart network manager
-alias restartnetwork="sudo systemctl restart network-manager.service && echo Network manager restarting..."
+alias restartnetwork="sudo systemctl restart NetworkManager.service && echo Network manager restarting..."
 
 # Start github
 function ghub {
