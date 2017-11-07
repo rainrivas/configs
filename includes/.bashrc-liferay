@@ -193,6 +193,8 @@ alias setMonitor="sh ~/configs/scripts/work-extended-primary.sh"
 
 alias i3config="vim ~/configs/i3/config"
 
+alias acd="ant clean deploy"
+
 function sfm {
   if [ "$1" ]; then
     git diff --stat --relative --name-only "$1".. | grep -E '.(tag|jsp.?|vm|ftl|js|(s)?css)$' | xargs check_sf;
