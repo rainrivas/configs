@@ -11,18 +11,18 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 " ===== Add custom plugins below this line =====
+" GitGutter for Vim
 Plugin 'airblade/vim-gitgutter'
 
+" Syntax Files
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 
-
-
-
-
-
-
+" Editor Config
+Plugin 'editorconfig/editorconfig-vim'
 
 " Themes
-"
 Plugin 'flazz/vim-colorschemes'
 
 " ===== Add custom plugins above this line =====
@@ -54,6 +54,7 @@ nnoremap k kzz
 syntax on
 
 set background=dark
+set expandtab
 set hlsearch
 set hlsearch
 set mouse=a
@@ -64,3 +65,7 @@ set splitright
 set sts=2
 set tabstop=2
 set ttymouse=sgr
+
+" Autorun configs
+autocmd BufWritePre * %s/\s\+$//e
+
