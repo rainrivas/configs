@@ -22,6 +22,15 @@ Plugin 'mxw/vim-jsx'
 " Editor Config
 Plugin 'editorconfig/editorconfig-vim'
 
+" CtrlP search
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" Tree view file browser
+Plugin 'scrooloose/nerdtree'
+
+Plugin 'henrik/vim-indexed-search'
+
+
 " Themes
 Plugin 'flazz/vim-colorschemes'
 
@@ -47,6 +56,22 @@ colorscheme spacegray
 
 " Italicize comments
 let g:spacegray_italicize_comments = 1
+
+" Nerdtree settings
+map <C-\> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+
+" Ctrl P Settings
+let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v[\/]\.?(git|hg|svn|node_modules|classes|build|dist)$',
+  \ }
+
 
 nnoremap j jzz
 nnoremap k kzz
